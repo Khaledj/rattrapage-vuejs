@@ -1,16 +1,19 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:p="projets">
     <h1>{{ msg }}</h1>
-    <projet ></projet>
+    <listeProjet ></listeProjet>
   </div>
 </template>
 
 <script>
+  import listeProjet from './listeProjet';
 export default {
   name: 'app',
+  components : {listeProjet},
   data () {
     return {
       msg: 'Interface de gestion de projet'
+
     }
   }
 }
