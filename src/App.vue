@@ -10,7 +10,7 @@ export default {
   name: 'app',
   data () {
     return {
-      name: 'Interface de gestion de projet'
+      msg: 'Interface de gestion de projet'
     }
   }
 }

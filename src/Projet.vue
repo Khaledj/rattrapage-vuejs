@@ -1,9 +1,15 @@
 <template>
-  <div v-bind:class="{ 'projet':!isActive}">
-    <h2>  {{n}}</h2>
-    <img v-bind:src = 'picture'> </img>
-    <p v-if="isActive">projet actif</p>
-    <p v-else>projet non actif</p>
+  <div v-bind:class="{ active:isActive}">
+    <div v-bind:class="{ nonactive:!isActive}">
+      <h2> {{n}}</h2>
+      <img v-bind:src='picture'> </img>
+      <div>
+      <input type="checkbox" id="checkbox" v-model="isActive">
+      <label v-if="isActive"> actif</label>
+      <label v-else>non actif</label>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -24,12 +30,18 @@
 </script>
 
 <style scoped>
-.projet {
+.nonactive {
   border : solid;
   background-color : red;
   width : 250px;
   margin:auto;
 
+}
+.active{
+    border : solid;
+    background-color : green;
+    width : 250px;
+    margin:auto;
 }
 </style>
 
