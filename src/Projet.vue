@@ -1,6 +1,7 @@
 <template>
+
   <div class="container-fluid">
-    <div v-bind:class="{ active:oneprojet.isActive}">
+   <div v-bind:class="{ active:oneprojet.isActive}">
       <div v-bind:class="{ nonactive:!oneprojet.isActive}">
         <h4> {{oneprojet.nom}}</h4>
         <div>
@@ -10,7 +11,8 @@
         <input type="checkbox" id="checkbox" v-model="oneprojet.isActive">
         <label v-if="oneprojet.isActive"> actif</label>
         <label v-else>non actif</label>
-
+        <br>
+        <router-link :to="'/projet'"> <button type="button" class="btn btn-success" > Detail </button></router-link>
       </div>
     </div>
   </div>
@@ -19,14 +21,11 @@
 
 <script>
     export default {
-        props : ['oneprojet'],
-        name: 'projet',
-        data : function() {
-          return {
-
-
-          }
-        }
+      props: ['oneprojet'],
+      name: 'projet',
+      data: function () {
+        return {}
+      },
     }
 </script>
 
@@ -34,13 +33,13 @@
 
 .nonactive {
   border :  solid black 5px;
-  background-color : red;
+  background-color : lightskyblue;
   margin:1em 2em 1em 2em;
 
 }
 .active{
     border : solid black 5px;
-    background-color : green;
+    background-color : darkseagreen;
     margin:1em 2em 1em 2em;
 
 }

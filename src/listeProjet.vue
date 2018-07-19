@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1> Interface de gestion de projet</h1>
       <div class="row">
       <projet  class="col-sm-4"v-for="projet in projets" v-bind:oneprojet="projet"></projet>
       </div>
