@@ -1,18 +1,16 @@
 <template>
-
   <div class="container-fluid">
-   <div v-bind:class="{ active:oneprojet.isActive}">
-      <div v-bind:class="{ nonactive:!oneprojet.isActive}">
-        <h4> {{oneprojet.nom}}</h4>
+   <div v-bind:class="{ active:projet.isActive}">
+      <div v-bind:class="{ nonactive:!projet.isActive}">
+        <h4> {{projet.nom}}</h4>
         <div>
-        <img v-bind:src='oneprojet.picture'> </img>
+        <img v-bind:src='projet.picture'> </img>
         </div>
         <br>
-        <input type="checkbox" id="checkbox" v-model="oneprojet.isActive">
-        <label v-if="oneprojet.isActive"> actif</label>
+        <input type="checkbox" id="checkbox" v-model="projet.isActive">
+        <label v-if="projet.isActive"> actif</label>
         <label v-else>non actif</label>
         <br>
-        <router-link :to="'/projet'"> <button type="button" class="btn btn-success" > Detail </button></router-link>
       </div>
     </div>
   </div>
@@ -21,10 +19,11 @@
 
 <script>
     export default {
-      props: ['oneprojet'],
+      props: ['projet'],
       name: 'projet',
       data: function () {
-        return {}
+        return {
+        }
       },
     }
 </script>

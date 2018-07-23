@@ -1,8 +1,20 @@
 <template>
   <div>
     <h1> Interface de gestion de projet</h1>
-      <div class="row">
-      <projet  class="col-sm-4"v-for="projet in projets" v-bind:oneprojet="projet"></projet>
+      <div>
+        <table>
+         <tr>
+           <th> Nom </th>
+           <th>Date de création <i  class="fas fa-caret-up" > </i> <i class="fas fa-caret-down" ></i></th>
+           <th> Détail</th>
+         </tr>
+        <tr v-for="projet in projets">
+            <td>{{projet.nom}}</td>
+            <td> {{projet.creation}}</td>
+            <td><router-link :to="{ name: 'Projet', params: { projet } }" class="btn btn-success"> Detail </router-link></td>
+
+          </tr>
+        </table>
       </div>
   </div>
 </template>
@@ -10,7 +22,7 @@
 <script>
   import Projet from './Projet';
     export default {
-      components: {Projet},
+      components: {"detail": Projet},
       name: "liste-projet",
       data() {
         return {
@@ -207,8 +219,25 @@
         }
       }
     }
+
 </script>
 
 <style scoped>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin:auto;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
 
 </style>
