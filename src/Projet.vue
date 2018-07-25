@@ -2,9 +2,11 @@
   <div class="container-fluid">
    <div v-bind:class="{ active:projet.isActive}">
       <div v-bind:class="{ nonactive:!projet.isActive}">
-        <h4> {{projet.nom}}</h4>
+        <!--<h4> {{projet.nom}}</h4>-->
+        <h4> {{projet.name}}</h4>
         <div>
-        <img v-bind:src='projet.picture'> </img>
+        <!--<img v-bind:src='projet.picture'> </img>-->
+          <img v-bind:src='projet.creator.picture'> </img>
         </div>
         <br>
         <input type="checkbox" id="checkbox" v-model="projet.isActive">
