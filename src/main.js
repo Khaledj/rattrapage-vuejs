@@ -8,7 +8,7 @@ import listeProjet from './listeProjet.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {path : '/',component : listeProjet},
+  {path : '/', name : 'listeProjet', component : listeProjet},
   {path : '/projet', name: 'Projet', component : Projet, props: true}
 ]
 const router = new VueRouter ({

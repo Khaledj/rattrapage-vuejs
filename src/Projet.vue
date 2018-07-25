@@ -13,7 +13,10 @@
         <br>
       </div>
     </div>
+    <router-link :to="{ name: 'listeProjet' }" class="btn btn-success"> Retour </router-link>
   </div>
+
+
 
 </template>
 

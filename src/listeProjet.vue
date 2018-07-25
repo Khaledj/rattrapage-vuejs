@@ -2,13 +2,14 @@
   <div>
     <h1> Interface de gestion de projet</h1>
       <div>
+        <input type="text" v-model="search"/>
         <table>
          <tr>
            <th> Nom </th>
-           <th>Date de création <i  class="fas fa-caret-up" > </i> <i class="fas fa-caret-down" ></i></th>
+           <th>Date de création <i @click="sortedDate" class="fas fa-caret-up" > </i> <i @click="reverseDate" class="fas fa-caret-down" ></i></th>
            <th> Détail</th>
          </tr>
-        <tr v-for="projet in projets">
+        <tr v-for="projet in listfiltered">
             <td>{{projet.nom}}</td>
             <td> {{projet.creation}}</td>
             <td><router-link :to="{ name: 'Projet', params: { projet } }" class="btn btn-success"> Detail </router-link></td>
@@ -20,12 +21,24 @@
 </template>
 
 <script>
-  import Projet from './Projet';
+  import Projet from './Projet'
+
+  function research(tableau,chaine) {
+    let tab2 = [];
+    for (let i = 0; i < tableau.length; i++) {
+      if (tableau[i].nom.startsWith(chaine)) {
+        tab2.push(tableau[i]);
+      }
+    }
+    return tab2;
+  }
+
     export default {
       components: {"detail": Projet},
       name: "liste-projet",
       data() {
         return {
+          search:'',
           projets: [
             {
               _id: "5b3e3da860e7c6eeb88e3ceb",
@@ -217,10 +230,38 @@
               creation: "Tue Feb 25 1975 21:31:07 GMT+0100 (Central European Standard Time)",
             }],
         }
+      },
+      computed : {
+        listfiltered : function() {
+          return research(this.projets,this.search.toUpperCase());
+        }
+      },
+      methods: {
+        sortedDate: function () {
+          this.projets.sort(function(date1,date2) {
+            if (new Date(date1.creation) > new Date(date2.creation)) {
+              return 1;
+            } else if (new Date(date1.creation) < new Date(date2.creation)) {
+              return -1;
+            } else if (new Date(date1.creation) === new Date(date2.creation)) {
+              return 0;
+            }
+          });
+
+           return this.projets;
+        },
+        reverseDate: function() {
+          return this.projets.reverse();
+        },
+        }
       }
-    }
+
+
+
 
 </script>
+
+
 
 <style scoped>
   table {
@@ -239,5 +280,8 @@
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+ input {
+   margin-left:-525px;
+ }
 
 </style>
