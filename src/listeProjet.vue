@@ -30,7 +30,7 @@
     let tab2 = [];
     for (let i = 0; i < tableau.length; i++) {
       // if (tableau[i].nom.startsWith(chaine)) {
-       if (tableau[i].name.startsWith(chaine)) {
+       if (tableau[i].name.toUpperCase().startsWith(chaine)) {
         tab2.push(tableau[i]);
       }
     }
