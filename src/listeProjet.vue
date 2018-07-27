@@ -10,7 +10,7 @@
            <th>Date de création <i @click="sortedDate" class="fas fa-caret-up" > </i> <i @click="reverseDate" class="fas fa-caret-down" ></i></th>
            <th> Détail</th>
            <th>Supprimer</th>
-         </tr>
+           </tr>
         <tr v-for="projet in listfiltered">
             <!--<td>{{projet.nom}}</td>-->
           <td>{{projet.name}}</td>

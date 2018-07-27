@@ -32,7 +32,6 @@
           this.newprojet = objet;
                axios.post('https://daily-standup-campus.herokuapp.com/api/projects?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMjNmODIzYTM5YjlmMDAxNGViNGJlNiIsImlhdCI6MTUzMTE0Mjg1MX0.K5e_nO1kl0sOOK8rvjYTiRkHPk2vBoGcSGY0Xh3zVQg',this.newprojet)
                  .then(response => {
-                   console.log(response.data);
                    this.$emit('ajout');
                    this.$router.push({path: '/'});
                  })
