@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h1> Interface de gestion de projet</h1>
-      <div>
-        <input type="text" v-model="search"/>
+    <h1> Interface de gestion de projet </h1>
+    <p v-if="loading"> loading... </p>
+        <input type="text" placeholder="tape le nom du projet" v-model="search"/>
+
         <table>
          <tr>
            <th> Nom </th>
@@ -15,10 +16,8 @@
             <!--<td> {{projet.creation}}</td>-->
           <td> {{projet.createdAt}}</td>
             <td><router-link :to="{ name: 'Projet', params: { projet } }" class="btn btn-success"> Detail </router-link></td>
-
           </tr>
         </table>
-      </div>
   </div>
 </template>
 
@@ -43,6 +42,7 @@
       data() {
         return {
           search:'',
+          loading : false,
           // projets: [
           //   {
           //     _id: "5b3e3da860e7c6eeb88e3ceb",
@@ -237,14 +237,18 @@
         }
       },
       created() {
+        this.loading=false;
         axios.get('https://daily-standup-campus.herokuapp.com/api/projects?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMjNmODIzYTM5YjlmMDAxNGViNGJlNiIsImlhdCI6MTUzMTE0Mjg1MX0.K5e_nO1kl0sOOK8rvjYTiRkHPk2vBoGcSGY0Xh3zVQg')
           .then(response=> {
-            this.projets = response.data
+            this.projets = response.data,
+              this.loading=false;
           })
           .catch(e=>{
             this.error.push(e)
           })
-      },
+        this.loading=true;
+        },
+
       computed : {
         listfiltered : function() {
           return research(this.projets,this.search.toUpperCase());
