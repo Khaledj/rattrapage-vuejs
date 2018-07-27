@@ -9,6 +9,7 @@
            <th> Nom </th>
            <th>Date de création <i @click="sortedDate" class="fas fa-caret-up" > </i> <i @click="reverseDate" class="fas fa-caret-down" ></i></th>
            <th> Détail</th>
+           <th>Supprimer</th>
          </tr>
         <tr v-for="projet in listfiltered">
             <!--<td>{{projet.nom}}</td>-->
@@ -16,6 +17,7 @@
             <!--<td> {{projet.creation}}</td>-->
           <td> {{projet.createdAt}}</td>
             <td><router-link :to="{ name: 'Projet', params: { projet } }" class="btn btn-success"> Detail </router-link></td>
+            <td> <button @click="destroy(projet.id)" class="btn btn-danger"> Supprimer </button></td>
           </tr>
         </table>
   </div>
@@ -41,8 +43,8 @@
       name: "liste-projet",
       data() {
         return {
-          search:'',
-          loading : false,
+          search: '',
+          loading: false,
           // projets: [
           //   {
           //     _id: "5b3e3da860e7c6eeb88e3ceb",
@@ -233,30 +235,30 @@
           //     nom: "PUSHCART",
           //     creation: "Tue Feb 25 1975 21:31:07 GMT+0100 (Central European Standard Time)",
           //   }],
-          projets:[],
+          projets: [],
         }
       },
       created() {
-        this.loading=false;
+        this.loading = false;
         axios.get('https://daily-standup-campus.herokuapp.com/api/projects?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMjNmODIzYTM5YjlmMDAxNGViNGJlNiIsImlhdCI6MTUzMTE0Mjg1MX0.K5e_nO1kl0sOOK8rvjYTiRkHPk2vBoGcSGY0Xh3zVQg')
-          .then(response=> {
+          .then(response => {
             this.projets = response.data,
-              this.loading=false;
+              this.loading = false;
           })
-          .catch(e=>{
+          .catch(e => {
             this.error.push(e)
           })
-        this.loading=true;
-        },
+        this.loading = true;
+      },
 
-      computed : {
-        listfiltered : function() {
-          return research(this.projets,this.search.toUpperCase());
+      computed: {
+        listfiltered: function () {
+          return research(this.projets, this.search.toUpperCase());
         }
       },
       methods: {
         sortedDate: function () {
-          this.projets.sort(function(date1,date2) {
+          this.projets.sort(function (date1, date2) {
             if (new Date(date1.creation) > new Date(date2.creation)) {
               return 1;
             } else if (new Date(date1.creation) < new Date(date2.creation)) {
@@ -266,10 +268,10 @@
             }
           });
 
-           return this.projets;
+          return this.projets;
         },
-        reverseDate: function() {
-          this.projets.sort(function(date1,date2) {
+        reverseDate: function () {
+          this.projets.sort(function (date1, date2) {
             if (new Date(date1.creation) > new Date(date2.creation)) {
               return 1;
             } else if (new Date(date1.creation) < new Date(date2.creation)) {
@@ -280,9 +282,18 @@
           });
           return this.projets.reverse();
         },
-        }
+        destroy : function (id) {
+           axios.delete('https://daily-standup-campus.herokuapp.com/api/projects/'+id+'?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMjNmODIzYTM5YjlmMDAxNGViNGJlNiIsImlhdCI6MTUzMTE0Mjg1MX0.K5e_nO1kl0sOOK8rvjYTiRkHPk2vBoGcSGY0Xh3zVQg')
+            .then(response=> {
+              console.log("le projet est detruit :"+ response.data);
+              axios.get('https://daily-standup-campus.herokuapp.com/api/projects?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMjNmODIzYTM5YjlmMDAxNGViNGJlNiIsImlhdCI6MTUzMTE0Mjg1MX0.K5e_nO1kl0sOOK8rvjYTiRkHPk2vBoGcSGY0Xh3zVQg')
+                .then(response=> {
+                  this.projets = response.data;
+                })
+             })
+        },
       }
-
+    }
 
 
 
