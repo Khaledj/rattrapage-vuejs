@@ -3,8 +3,8 @@
     <h1> Interface de gestion de projet </h1>
     <p v-if="loading"> loading... </p>
         <input type="text" placeholder="tape le nom du projet" v-model="search"/>
-
-        <table>
+     <router-link :to="{ name: 'ajout',params:{projets}}" @ajout="getprojets" class="btn btn-primary"> Ajouter un projet </router-link>
+    <table>
          <tr>
            <th> Nom </th>
            <th>Date de création <i @click="sortedDate" class="fas fa-caret-up" > </i> <i @click="reverseDate" class="fas fa-caret-down" ></i></th>
@@ -21,6 +21,7 @@
           </tr>
         </table>
   </div>
+
 </template>
 
 <script>
@@ -239,16 +240,7 @@
         }
       },
       created() {
-        this.loading = false;
-        axios.get('https://daily-standup-campus.herokuapp.com/api/projects?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMjNmODIzYTM5YjlmMDAxNGViNGJlNiIsImlhdCI6MTUzMTE0Mjg1MX0.K5e_nO1kl0sOOK8rvjYTiRkHPk2vBoGcSGY0Xh3zVQg')
-          .then(response => {
-            this.projets = response.data,
-              this.loading = false;
-          })
-          .catch(e => {
-            this.error.push(e)
-          })
-        this.loading = true;
+       this.getprojets();
       },
 
       computed: {
@@ -292,6 +284,19 @@
                 })
              })
         },
+        getprojets : function() {
+          this.loading = false;
+          axios.get('https://daily-standup-campus.herokuapp.com/api/projects?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViMjNmODIzYTM5YjlmMDAxNGViNGJlNiIsImlhdCI6MTUzMTE0Mjg1MX0.K5e_nO1kl0sOOK8rvjYTiRkHPk2vBoGcSGY0Xh3zVQg')
+            .then(response => {
+              this.projets = response.data,
+                this.loading = false;
+            })
+            .catch(e => {
+              this.error.push(e)
+            })
+          this.loading = true;
+        }
+
       }
     }
 
@@ -319,7 +324,7 @@
     background-color: #dddddd;
   }
  input {
-   margin-left:-525px;
+   margin-left:-380px;
  }
 
 </style>
